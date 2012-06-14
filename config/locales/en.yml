@@ -2,4 +2,25 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  compaign: 
+    name: "Compaigns"
+    title: "Compaign Title"
+    interval_min: "Min task interval"
+    interval_max: "Max task interval"
+    status: "Status"
+  task:
+    from: "From"
+    to: "To"
+    status: "Status"
+  template:
+    lang: "lang"
+    subject: "subject"
+    content_type: "content type"
+    content: "content"
+  mailconfig:
+    delivery_method: "delivery method"
+    address: "server address"
+    port: "port"
+    user_name: "email account"
+    password: "email password"
+    authentication: "authentication"

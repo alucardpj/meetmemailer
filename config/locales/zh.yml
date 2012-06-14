@@ -1,0 +1,28 @@
+zh:
+  compaigns: 
+    name: "邮件活动"
+    title: "活动标题"
+    interval_min: "最小间隔"
+    interval_max: "最大间隔"
+    created_at: "创建时间"
+    status: "活动状态"
+  task:
+    from: "发信人"
+    to: "收信人"
+    status: "任务状态"
+  template:
+    lang: "语言"
+    subject: "邮件主题"
+    content_type: "正文类型"
+    content: "邮件正文"
+  mailconfig:
+    delivery_method: "发送方式"
+    address: "邮件服务器地址"
+    port: "端口"
+    user_name: "邮箱帐号"
+    password: "邮箱密码"
+    authentication: "登录方式"
+  helpers:
+    actions: "操作"
+    links:
+      new: "创建"
