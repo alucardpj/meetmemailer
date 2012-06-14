@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  delivery_method: MyString
+  address: MyString
+  port: 1
+  user_name: MyString
+  password: MyString
+  authentication: MyString
+
+two:
+  delivery_method: MyString
+  address: MyString
+  port: 1
+  user_name: MyString
+  password: MyString
+  authentication: MyString

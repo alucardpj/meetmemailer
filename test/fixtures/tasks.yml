@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  mailconfig_id: 1
+  from: MyString
+  to: MyString
+  template_id: 1
+  status: MyString
+
+two:
+  mailconfig_id: 1
+  from: MyString
+  to: MyString
+  template_id: 1
+  status: MyString

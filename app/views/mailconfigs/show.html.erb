@@ -1,0 +1,31 @@
+<%- model_class = @mailconfig.class -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:delivery_method) %>:</strong></dt>
+  <dd><%= @mailconfig.delivery_method %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:address) %>:</strong></dt>
+  <dd><%= @mailconfig.address %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:port) %>:</strong></dt>
+  <dd><%= @mailconfig.port %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:user_name) %>:</strong></dt>
+  <dd><%= @mailconfig.user_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:password) %>:</strong></dt>
+  <dd><%= @mailconfig.password %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:authentication) %>:</strong></dt>
+  <dd><%= @mailconfig.authentication %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              mailconfigs_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_mailconfig_path(@mailconfig), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              mailconfig_path(@mailconfig),
+              :method => 'delete',
+              :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+              :class => 'btn btn-danger' %>
+</div>

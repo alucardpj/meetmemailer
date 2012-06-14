@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  interval_min: 1
+  interval_max: 1
+  status: MyString
+
+two:
+  title: MyString
+  interval_min: 1
+  interval_max: 1
+  status: MyString
