@@ -1,16 +1,16 @@
 <%- model_class = Compaign.new.class -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+  <h1><%=t "compaign" %></h1>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= t "compaigns.title" %></th>
-      <th><%= t "compaigns.interval_min" %></th>
-      <th><%= t "compaigns.interval_max" %></th>
-      <th><%= t "compaigns.status" %></th>
-      <th><%= t "compaigns.created_at" %></th>
+      <th><%= t "helpers.label.compaign.title" %></th>
+      <th><%= t "helpers.label.compaign.interval_min" %></th>
+      <th><%= t "helpers.label.compaign.interval_max" %></th>
+      <th><%= t "helpers.label.compaign.status" %></th>
+      <th><%= t "helpers.label.compaign.created_at" %></th>
       <th><%= t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>

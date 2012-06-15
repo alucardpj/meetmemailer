@@ -1,4 +1,10 @@
-<%= form_for @compaign, :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for @compaign, :html => { :multipart => true, :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= label_tag :mailconfig, t("helpers.label.compaign.mailconfig"), :class => 'control-label' %>
+    <div class="controls">
+      <%= select_tag :mailconfig, options_for_select([['mail.huatandm.com',1],['mail.16.com',2]],1) %>
+    </div>
+  </div>
   <div class="control-group">
     <%= f.label :title, :class => 'control-label' %>
     <div class="controls">
@@ -23,7 +29,24 @@
       <%= f.text_field :status, :class => 'text_field' %>
     </div>
   </div>
-
+  <div class="control-group">
+    <%= label_tag :maillist, t("helpers.label.compaign.maillist"), :class => 'control-label' %>
+    <div class="controls">
+      <%= file_field_tag :maillist, :class => 'input-file' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= label_tag :zhtemplate, t("helpers.label.compaign.zhtemplate"), :class => 'control-label' %>
+    <div class="controls">
+      <%= file_field_tag :zhtemplate, :class => 'input-file' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= label_tag :entemplate, t("helpers.label.compaign.entemplate"), :class => 'control-label' %>
+    <div class="controls">
+      <%= file_field_tag :entemplate, :class => 'input-file' %>
+    </div>
+  </div>
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

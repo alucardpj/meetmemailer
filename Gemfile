@@ -41,3 +41,5 @@ gem 'resque'
 
 # To use debugger
 # gem 'debugger'
+gem 'pry', :group => :development
+gem 'pry-nav'
