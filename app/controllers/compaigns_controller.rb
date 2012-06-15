@@ -15,7 +15,7 @@ class CompaignsController < ApplicationController
   # GET /compaigns/1.json
   def show
     @compaign = Compaign.find(params[:id])
-
+    binding.pry
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @compaign }
@@ -26,14 +26,7 @@ class CompaignsController < ApplicationController
   # GET /compaigns/new.json
   def new
     @compaign = Compaign.new
-    @mailconfig = Mailconfig.all
-    @options = []
-    @mailconfig.each do |config|
-      option = []
-      option << config.user_name
-      option << config.user_name
-      @options << option
-    end
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @compaign }
@@ -48,21 +41,22 @@ class CompaignsController < ApplicationController
   # POST /compaigns
   # POST /compaigns.json
   def create
-    @compaign = Compaign.new(params[:compaign])
-    maillist_io = params[:maillist]
-    mailconfig = params[:mailconfig]
-    
-    # binding.pry
-    File.open("tmp/#{maillist_io.original_filename}", 'wb') do |file|
-      file.write maillist_io.read
-    end
-    # binding.pry
-    oo = Excelx.new("tmp/#{maillist_io.original_filename}")
-    oo.default_sheet = oo.sheets.first
-    1.upto(oo.last_row) do |line|
-      puts oo.cell(line, 'A')
-    end
     binding.pry
+    @compaign = Compaign.new(params[:compaign])
+
+    # maillist_io = params[:maillist]
+    
+    # # binding.pry
+    # File.open("tmp/#{maillist_io.original_filename}", 'wb') do |file|
+    #   file.write maillist_io.read
+    # end
+    # # binding.pry
+    # oo = Excelx.new("tmp/#{maillist_io.original_filename}")
+    # oo.default_sheet = oo.sheets.first
+    # 1.upto(oo.last_row) do |line|
+    #   puts oo.cell(line, 'A')
+    # end
+    # binding.pry
     respond_to do |format|
       if @compaign.save
         format.html { redirect_to @compaign, notice: 'Compaign was successfully created.' }

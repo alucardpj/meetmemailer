@@ -1,8 +1,8 @@
 <%= form_for @compaign, :html => { :multipart => true, :class => 'form-horizontal' } do |f| %>
   <div class="control-group">
-    <%= label_tag :mailconfig, t("helpers.label.compaign.mailconfig"), :class => 'control-label' %>
+    <%= f.label :mailconfig_id, :class => 'control-label' %>
     <div class="controls">
-      <%= select_tag :mailconfig, options_for_select(@options,1) %>
+      <%= collection_select :compaign, :mailconfig_id, Mailconfig.all, :id, :name_with_initial, :prompt => true %>
     </div>
   </div>
   <div class="control-group">
