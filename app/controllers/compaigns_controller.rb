@@ -26,7 +26,14 @@ class CompaignsController < ApplicationController
   # GET /compaigns/new.json
   def new
     @compaign = Compaign.new
-
+    @mailconfig = Mailconfig.all
+    @options = []
+    @mailconfig.each do |config|
+      option = []
+      option << config.user_name
+      option << config.user_name
+      @options << option
+    end
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @compaign }
@@ -44,6 +51,7 @@ class CompaignsController < ApplicationController
     @compaign = Compaign.new(params[:compaign])
     maillist_io = params[:maillist]
     mailconfig = params[:mailconfig]
+    
     # binding.pry
     File.open("tmp/#{maillist_io.original_filename}", 'wb') do |file|
       file.write maillist_io.read

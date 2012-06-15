@@ -2,7 +2,7 @@
   <div class="control-group">
     <%= label_tag :mailconfig, t("helpers.label.compaign.mailconfig"), :class => 'control-label' %>
     <div class="controls">
-      <%= select_tag :mailconfig, options_for_select([['mail.huatandm.com',1],['mail.16.com',2]],1) %>
+      <%= select_tag :mailconfig, options_for_select(@options,1) %>
     </div>
   </div>
   <div class="control-group">

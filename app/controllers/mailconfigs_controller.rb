@@ -42,7 +42,8 @@ class MailconfigsController < ApplicationController
   # POST /mailconfigs.json
   def create
     @mailconfig = Mailconfig.new(params[:mailconfig])
-
+    @mailconfig.delivery_method = "smtp"
+    @mailconfig.authentication = "login"
     respond_to do |format|
       if @mailconfig.save
         format.html { redirect_to @mailconfig, notice: 'Mailconfig was successfully created.' }

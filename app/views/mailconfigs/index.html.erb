@@ -6,13 +6,10 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:delivery_method) %></th>
       <th><%= model_class.human_attribute_name(:address) %></th>
       <th><%= model_class.human_attribute_name(:port) %></th>
       <th><%= model_class.human_attribute_name(:user_name) %></th>
       <th><%= model_class.human_attribute_name(:password) %></th>
-      <th><%= model_class.human_attribute_name(:authentication) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -20,13 +17,10 @@
     <% @mailconfigs.each do |mailconfig| %>
       <tr>
         <td><%= link_to mailconfig.id, mailconfig_path(mailconfig) %></td>
-        <td><%= mailconfig.delivery_method %></td>
         <td><%= mailconfig.address %></td>
         <td><%= mailconfig.port %></td>
         <td><%= mailconfig.user_name %></td>
         <td><%= mailconfig.password %></td>
-        <td><%= mailconfig.authentication %></td>
-        <td><%=l mailconfig.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_mailconfig_path(mailconfig), :class => 'btn btn-mini' %>
