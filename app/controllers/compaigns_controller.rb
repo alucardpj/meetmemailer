@@ -15,7 +15,7 @@ class CompaignsController < ApplicationController
   # GET /compaigns/1.json
   def show
     @compaign = Compaign.find(params[:id])
-    binding.pry
+    #binding.pry
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @compaign }
@@ -41,22 +41,37 @@ class CompaignsController < ApplicationController
   # POST /compaigns
   # POST /compaigns.json
   def create
-    binding.pry
     @compaign = Compaign.new(params[:compaign])
+    #binding.pry
+    if params[:maillist] == nil || params[:zhtemplate] == nil
+      flash[:notice] = "Please submit tasks excel file."
+      render :new and return
+    end
 
-    # maillist_io = params[:maillist]
-    
+    maillist_io = params[:maillist]
+    zhtemplatefile = params[:zhtemplate]
+    zhtemplate = Template.new
+    zhtemplate.lang = "zh"
+    zhtemplate.content = zhtemplatefile.read
+    zhtemplate.save
     # # binding.pry
-    # File.open("tmp/#{maillist_io.original_filename}", 'wb') do |file|
-    #   file.write maillist_io.read
-    # end
-    # # binding.pry
-    # oo = Excelx.new("tmp/#{maillist_io.original_filename}")
-    # oo.default_sheet = oo.sheets.first
-    # 1.upto(oo.last_row) do |line|
-    #   puts oo.cell(line, 'A')
-    # end
+    File.open("tmp/#{maillist_io.original_filename}", 'wb') do |file|
+      file.write maillist_io.read
+    end
     # binding.pry
+    oo = Excelx.new("tmp/#{maillist_io.original_filename}")
+    oo.default_sheet = oo.sheets.first
+    1.upto(oo.last_row) do |line|
+      #puts oo.cell(line, 'A')
+      task = Task.new
+      task.from = @compaign.mailconfig.user_name
+      task.to = oo.cell(line, 'A')
+      task.template = zhtemplate
+      task.compaign = @compaign
+      task.status = "initial"
+      task.save
+    end
+    #binding.pry
     respond_to do |format|
       if @compaign.save
         format.html { redirect_to @compaign, notice: 'Compaign was successfully created.' }
@@ -88,6 +103,9 @@ class CompaignsController < ApplicationController
   # DELETE /compaigns/1.json
   def destroy
     @compaign = Compaign.find(params[:id])
+    @compaign.tasks.each do |task|
+      task.destroy
+    end
     @compaign.destroy
 
     respond_to do |format|

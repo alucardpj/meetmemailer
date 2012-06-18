@@ -17,8 +17,8 @@
   <tbody>
     <% @compaigns.each do |compaign| %>
       <tr>
-        <td><%= link_to compaign.id, compaign_path(compaign) %></td>
-        <td><%= compaign.title %></td>
+        <td><%= compaign.id %></td>
+        <td><%= link_to compaign.title, compaign_path(compaign) %></td>
         <td><%= compaign.interval_min %></td>
         <td><%= compaign.interval_max %></td>
         <td><%= compaign.status %></td>

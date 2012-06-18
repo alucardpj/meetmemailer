@@ -1,3 +1,8 @@
+<% if flash[:notice] %>
+<div class="alert alert-error">
+  <%= flash[:notice] %>
+</div>
+<% end %>
 <%- model_class = @compaign.class -%>
 <div class="page-header">
   <h1>

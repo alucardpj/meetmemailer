@@ -6,9 +6,9 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:user_name) %></th>
       <th><%= model_class.human_attribute_name(:address) %></th>
       <th><%= model_class.human_attribute_name(:port) %></th>
-      <th><%= model_class.human_attribute_name(:user_name) %></th>
       <th><%= model_class.human_attribute_name(:password) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -16,10 +16,10 @@
   <tbody>
     <% @mailconfigs.each do |mailconfig| %>
       <tr>
-        <td><%= link_to mailconfig.id, mailconfig_path(mailconfig) %></td>
+        <td><%= mailconfig.id %></td>
+        <td><%= link_to mailconfig.user_name, mailconfig_path(mailconfig) %></td>
         <td><%= mailconfig.address %></td>
         <td><%= mailconfig.port %></td>
-        <td><%= mailconfig.user_name %></td>
         <td><%= mailconfig.password %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
