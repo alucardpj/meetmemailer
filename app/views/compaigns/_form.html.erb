@@ -24,21 +24,27 @@
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :status, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :status, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
     <%= label_tag :maillist, t("helpers.label.compaign.maillist"), :class => 'control-label' %>
     <div class="controls">
       <%= file_field_tag :maillist, :class => 'input-file' %>
     </div>
   </div>
   <div class="control-group">
+    <%= label_tag :zhsubject, t("helpers.label.compaign.zhsubject"), :class => 'control-label' %>
+    <div class="controls">
+      <%= text_field_tag :zhsubject, nil, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
     <%= label_tag :zhtemplate, t("helpers.label.compaign.zhtemplate"), :class => 'control-label' %>
     <div class="controls">
       <%= file_field_tag :zhtemplate, :class => 'input-file' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= label_tag :ensubject, t("helpers.label.compaign.ensubject"), :class => 'control-label' %>
+    <div class="controls">
+      <%= text_field_tag :ensubject, nil, :class => 'text_field' %>
     </div>
   </div>
   <div class="control-group">

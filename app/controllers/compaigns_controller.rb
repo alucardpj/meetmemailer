@@ -1,3 +1,4 @@
+require 'maildelivery'
 
 class CompaignsController < ApplicationController
   # GET /compaigns
@@ -15,6 +16,7 @@ class CompaignsController < ApplicationController
   # GET /compaigns/1.json
   def show
     @compaign = Compaign.find(params[:id])
+    @tasks = Task.paginate(:page => params[:page], :per_page => 10)
     #binding.pry
     respond_to do |format|
       format.html # show.html.erb
@@ -41,19 +43,15 @@ class CompaignsController < ApplicationController
   # POST /compaigns
   # POST /compaigns.json
   def create
-    @compaign = Compaign.new(params[:compaign])
     #binding.pry
-    if params[:maillist] == nil || params[:zhtemplate] == nil
+    @compaign = Compaign.new(params[:compaign])
+    @compaign.status = 'initial'
+    if params[:maillist] == nil
       flash[:notice] = "Please submit tasks excel file."
       render :new and return
     end
 
     maillist_io = params[:maillist]
-    zhtemplatefile = params[:zhtemplate]
-    zhtemplate = Template.new
-    zhtemplate.lang = "zh"
-    zhtemplate.content = zhtemplatefile.read
-    zhtemplate.save
     # # binding.pry
     File.open("tmp/#{maillist_io.original_filename}", 'wb') do |file|
       file.write maillist_io.read
@@ -61,12 +59,44 @@ class CompaignsController < ApplicationController
     # binding.pry
     oo = Excelx.new("tmp/#{maillist_io.original_filename}")
     oo.default_sheet = oo.sheets.first
+    #binding.pry
+    if oo.column('B').index('zh') != nil && (params[:zhtemplate] == nil || params[:zhsubject] == nil)
+      flash[:notice] = "Please submit zh template."
+      render :new and return
+    elsif oo.column('B').index('en') != nil && (params[:entemplate] == nil || params[:ensubject] == nil)
+      flash[:notice] = "Please submit en template."
+      render :new and return
+    end
+    zhtemplatefile, zhtemplate = nil
+    if params[:zhtemplate] != nil && params[:zhsubject] != nil
+      zhtemplatefile = params[:zhtemplate]
+      zhtemplate = Template.new
+      zhtemplate.lang = "zh"
+      zhtemplate.content = zhtemplatefile.read
+      zhtemplate.content_type = 'text/html; charset=UTF-8'
+      zhtemplate.subject = params[:zhsubject]
+      zhtemplate.save
+    end
+    entemplatefile, entemplate = nil
+    if params[:entemplate] != nil && params[:ensubject] != nil
+      entemplatefile = params[:entemplate]
+      entemplate = Template.new
+      entemplate.lang = "en"
+      entemplate.content = entemplatefile.read
+      entemplate.content_type = 'text/html; charset=UTF-8'
+      entemplate.subject = params[:ensubject]
+      entemplate.save
+    end
     1.upto(oo.last_row) do |line|
-      #puts oo.cell(line, 'A')
       task = Task.new
       task.from = @compaign.mailconfig.user_name
       task.to = oo.cell(line, 'A')
-      task.template = zhtemplate
+      case oo.cell(line, 'B')
+      when 'zh'
+        task.template = zhtemplate
+      when 'en'
+        task.template = entemplate
+      end
       task.compaign = @compaign
       task.status = "initial"
       task.save
@@ -112,5 +142,13 @@ class CompaignsController < ApplicationController
       format.html { redirect_to compaigns_url }
       format.json { head :no_content }
     end
+  end
+
+  def execute
+    @compaign = Compaign.find(params[:id])
+    @compaign.tasks.each do |task|
+      Resque.enqueue(Maildelivery, @compaign.mailconfig_id, task.id)
+    end
+    redirect_to @compaign, notice: 'Compaign was executing.'
   end
 end

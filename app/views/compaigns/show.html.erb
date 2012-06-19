@@ -1,3 +1,8 @@
+<% if flash[:notice] %>
+<div class="alert alert-success">
+  <%= flash[:notice] %>
+</div>
+<% end %>
 <%- model_class = @compaign.class -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human %></h1>
@@ -14,11 +19,35 @@
   <dd><%= @compaign.status %></dd>
 </dl>
 
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>To</th>
+      <th>Subject</th>
+      <th>Status</th>      
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+    <tr>
+      <td><%= task.id %></td>
+      <td><%= task.to %></td>
+      <td><%= task.template.subject %></td>
+      <td><%= task.status %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @tasks %>
+
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               compaigns_path, :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_compaign_path(@compaign), :class => 'btn' %>
+  <%= link_to "execute", execute_compaign_path(@compaign), :class => 'btn' %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
               compaign_path(@compaign),
               :method => 'delete',
