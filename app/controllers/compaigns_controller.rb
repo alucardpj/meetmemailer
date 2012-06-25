@@ -16,7 +16,7 @@ class CompaignsController < ApplicationController
   # GET /compaigns/1.json
   def show
     @compaign = Compaign.find(params[:id])
-    @tasks = Task.paginate(:page => params[:page], :per_page => 10)
+    @tasks = @compaign.tasks.paginate(:page => params[:page], :per_page => 10)
     #binding.pry
     respond_to do |format|
       format.html # show.html.erb
