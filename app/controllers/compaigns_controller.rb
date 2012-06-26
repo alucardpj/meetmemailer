@@ -4,7 +4,7 @@ class CompaignsController < ApplicationController
   # GET /compaigns
   # GET /compaigns.json
   def index
-    @compaigns = Compaign.all
+    @compaigns = Compaign.paginate(:page => params[:page], :per_page => 10 )
 
     respond_to do |format|
       format.html # index.html.erb
