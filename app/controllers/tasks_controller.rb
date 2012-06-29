@@ -36,6 +36,7 @@ class TasksController < ApplicationController
   # GET /tasks/1/edit
   def edit
     @task = Task.find(params[:id])
+    @compaign = @task.compaign
   end
 
   # POST /tasks

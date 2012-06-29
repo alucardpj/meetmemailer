@@ -32,7 +32,7 @@
     <% @tasks.each do |task| %>
     <tr>
       <td><%= task.id %></td>
-      <td><%= task.to %></td>
+      <td><%= link_to task.to, compaign_task_path(@compaign, task) %></td>
       <td><%= task.template.subject %></td>
       <td><%= task.status %></td>
     </tr>

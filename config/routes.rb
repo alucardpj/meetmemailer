@@ -1,6 +1,10 @@
 Meetmemailer::Application.routes.draw do
   resources :compaigns do
-    resource :tasks
+    resources :tasks do
+      member do
+        get :preview
+      end
+    end
     member do
       get :execute
     end
