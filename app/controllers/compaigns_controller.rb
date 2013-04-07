@@ -57,7 +57,7 @@ class CompaignsController < ApplicationController
       file.write maillist_io.read
     end
     # binding.pry
-    oo = Excelx.new("tmp/#{maillist_io.original_filename}")
+    oo = Roo::Excelx.new("tmp/#{maillist_io.original_filename}")
     oo.default_sheet = oo.sheets.first
     #binding.pry
     if oo.column('B').index('zh') != nil && (params[:zhtemplate] == nil || params[:zhsubject] == nil)
